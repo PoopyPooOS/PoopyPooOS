@@ -1,0 +1,12 @@
+[submodule "userspace/tl"]
+	path = userspace/tl
+	url = https://github.com/PoopyPooOS/tl
+[submodule "userspace/logger"]
+	path = userspace/logger
+	url = https://github.com/PoopyPooOS/logger
+[submodule "userspace/ipc"]
+	path = userspace/ipc
+	url = https://github.com/PoopyPooOS/ipc
+[submodule "userspace/init"]
+	path = userspace/init
+	url = https://github.com/PoopyPooOS/init

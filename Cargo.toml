@@ -1,0 +1,36 @@
+[package]
+name = "os-workspace"
+version = "0.0.0"
+edition = "2024"
+
+[workspace]
+resolver = "2"
+members = ["userspace/*"]
+
+[workspace.dependencies]
+# Serializing
+serde = { version = "1", features = ["derive"] }
+bincode = { version = "2", features = ["serde"] }
+toml = "0.8.20"
+
+# OS APIs
+rustix = "1"
+crossterm = "0.28"
+
+# Other
+colored = "3"
+thiserror = "2"
+
+# Custom libraries
+logger = { path = "userspace/logger" }
+ipc = { path = "userspace/ipc" }
+tl = { path = "userspace/tl" }
+
+[profile.release]
+opt-level = "z"
+strip = true
+
+# Packages
+[[bin]]
+name = "init"
+path = "userspace/init"
