@@ -13,9 +13,15 @@ serde = { version = "1", features = ["derive"] }
 bincode = { version = "2", features = ["serde"] }
 toml = "0.8.20"
 
+# Async
+tokio = { version = "1", features = ["full"] }
+futures = "0.3.31"
+
 # OS APIs
 rustix = "1"
 crossterm = "0.28"
+signal-hook = { version = "0.3.17", features = ["extended-siginfo"] }
+signal-hook-tokio = { version = "0.3.1", features = ["futures-v0_3"] }
 
 # Other
 colored = "3"
@@ -34,3 +40,7 @@ strip = true
 [[bin]]
 name = "init"
 path = "userspace/init"
+
+[[bin]]
+name = "serviced"
+path = "userspace/serviced"

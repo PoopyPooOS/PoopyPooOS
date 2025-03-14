@@ -10,3 +10,6 @@
 [submodule "userspace/init"]
 	path = userspace/init
 	url = https://github.com/PoopyPooOS/init
+[submodule "userspace/serviced"]
+	path = userspace/serviced
+	url = https://github.com/PoopyPooOS/serviced
