@@ -13,3 +13,9 @@
 [submodule "userspace/serviced"]
 	path = userspace/serviced
 	url = https://github.com/PoopyPooOS/serviced
+[submodule "dylib-crates/tokio"]
+	path = dylib-crates/tokio
+	url = https://github.com/PoopyPooOS/tokio
+[submodule "dylib-crates/serde"]
+	path = dylib-crates/serde
+	url = https://github.com/PoopyPooOS/serde

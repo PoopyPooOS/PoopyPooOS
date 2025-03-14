@@ -3,6 +3,10 @@ name = "os-workspace"
 version = "0.0.0"
 edition = "2024"
 
+[profile.release]
+opt-level = "z"
+strip = true
+
 [workspace]
 resolver = "2"
 members = ["userspace/*"]
@@ -32,15 +36,24 @@ logger = { path = "userspace/logger" }
 ipc = { path = "userspace/ipc" }
 tl = { path = "userspace/tl" }
 
-[profile.release]
-opt-level = "z"
-strip = true
+# Crate patches
+proc-macro2 = "1.0.94"
+quote = "1.0.40"
+syn = "2.0.100"
 
-# Packages
-[[bin]]
-name = "init"
-path = "userspace/init"
+[patch.crates-io]
+serde = { path = "./dylib-crates/serde/serde" }
+tokio = { path = "./dylib-crates/tokio/tokio" }
 
-[[bin]]
-name = "serviced"
-path = "userspace/serviced"
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = [
+  'cfg(fuzzing)',
+  'cfg(loom)',
+  'cfg(mio_unsupported_force_poll_poll)',
+  'cfg(tokio_allow_from_blocking_fd)',
+  'cfg(tokio_internal_mt_counters)',
+  'cfg(tokio_no_parking_lot)',
+  'cfg(tokio_no_tuning_tests)',
+  'cfg(tokio_taskdump)',
+  'cfg(tokio_unstable)',
+] }
