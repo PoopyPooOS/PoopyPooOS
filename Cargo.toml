@@ -9,29 +9,44 @@ strip = true
 
 [workspace]
 resolver = "2"
-members = ["userspace/*"]
+members = ["userspace/*", "userspace/pkg/libpkg"]
 
 [workspace.dependencies]
 # Serializing
 serde = { version = "1", features = ["derive"] }
 bincode = { version = "2", features = ["serde"] }
+serde-inline-default = "0.2.3"
 toml = "0.8.20"
 
 # Async
 tokio = { version = "1", features = ["full"] }
 futures = "0.3.31"
 
+# Network APIs
+reqwest = { version = "0.12", default-features = false, features = [
+  "rustls-tls",
+  "charset",
+  "http2",
+] }
+url = "2.5.4"
+
 # OS APIs
 rustix = "1"
-crossterm = "0.28"
 signal-hook = { version = "0.3.17", features = ["extended-siginfo"] }
 signal-hook-tokio = { version = "0.3.1", features = ["futures-v0_3"] }
 
-# Other
+# CLI APIs
+clap = { version = "4.5", features = ["derive"] }
+crossterm = "0.28"
 colored = "3"
+
+# Other
+git2 = { version = "0.20", default-features = false }
+chrono = "0.4.40"
 thiserror = "2"
 
 # Custom libraries
+libpkg = { path = "userspace/pkg/libpkg" }
 logger = { path = "userspace/logger" }
 ipc = { path = "userspace/ipc" }
 tl = { path = "userspace/tl" }
@@ -57,3 +72,13 @@ unexpected_cfgs = { level = "warn", check-cfg = [
   'cfg(tokio_taskdump)',
   'cfg(tokio_unstable)',
 ] }
+
+[workspace.lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+
+missing_errors_doc = "allow"
+missing_panics_doc = "warn"
+
+needless_pass_by_value = "allow"
+module_name_repetitions = "allow"
+must_use_candidate = "allow"
