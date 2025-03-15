@@ -25,3 +25,6 @@
 [submodule "dylib-crates/clap"]
 	path = dylib-crates/clap
 	url = https://github.com/PoopyPooOS/clap
+[submodule "userspace/login"]
+	path = userspace/login
+	url = https://github.com/PoopyPooOS/login
