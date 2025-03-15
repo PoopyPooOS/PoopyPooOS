@@ -2,7 +2,7 @@
 name = "os-workspace"
 version = "0.0.0"
 edition = "2024"
-# build = "build/main.rs"
+# build = "src/builder/main.rs"
 
 [features]
 iso = []
@@ -13,7 +13,12 @@ strip = true
 
 [workspace]
 resolver = "2"
-members = ["userspace/*", "userspace/pkg/libpkg"]
+members = [
+  "userspace/*",
+  "userspace/pkg/libpkg",
+  "userspace/userd/ipc-userd",
+  "userspace/serviced/ipc-serviced",
+]
 
 [workspace.dependencies]
 # Serializing
@@ -44,6 +49,11 @@ clap = { version = "4.5", features = ["derive"] }
 crossterm = "0.28"
 colored = "3"
 
+# Encryption Libraries
+rand_core = { version = "0.6.4", features = ["getrandom"] }
+argon2 = "0.5.3"
+
+
 # Other
 git2 = { version = "0.20", default-features = false }
 chrono = "0.4.40"
@@ -54,6 +64,10 @@ libpkg = { path = "userspace/pkg/libpkg" }
 logger = { path = "userspace/logger" }
 ipc = { path = "userspace/ipc" }
 tl = { path = "userspace/tl" }
+
+# IPC Wrappers
+ipc-userd = { path = "userspace/userd/ipc-userd" }
+ipc-serviced = { path = "userspace/serviced/ipc-serviced" }
 
 # Crate patches
 proc-macro2 = "1.0.94"
