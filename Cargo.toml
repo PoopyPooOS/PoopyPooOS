@@ -18,6 +18,7 @@ members = [
   "userspace/pkg/libpkg",
   "userspace/userd/ipc-userd",
   "userspace/serviced/ipc-serviced",
+  "userspace/coreutils/coreutils-macro",
 ]
 
 [workspace.dependencies]
@@ -46,6 +47,7 @@ signal-hook-tokio = { version = "0.3.1", features = ["futures-v0_3"] }
 
 # CLI APIs
 clap = { version = "4.5", features = ["derive"] }
+terminal_size = "0.4"
 crossterm = "0.28"
 colored = "3"
 
@@ -71,12 +73,13 @@ ipc-serviced = { path = "userspace/serviced/ipc-serviced" }
 
 # Crate patches
 proc-macro2 = "1.0.94"
-quote = "1.0.40"
-syn = "2.0.100"
+quote = "1"
+syn = "2"
 
 [patch.crates-io]
 serde = { path = "./dylib-crates/serde/serde" }
 tokio = { path = "./dylib-crates/tokio/tokio" }
+clap = { path = "./dylib-crates/clap" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = [

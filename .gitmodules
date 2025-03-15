@@ -19,3 +19,9 @@
 [submodule "dylib-crates/serde"]
 	path = dylib-crates/serde
 	url = https://github.com/PoopyPooOS/serde
+[submodule "userspace/coreutils"]
+	path = userspace/coreutils
+	url = https://github.com/PoopyPooOS/coreutils
+[submodule "dylib-crates/clap"]
+	path = dylib-crates/clap
+	url = https://github.com/PoopyPooOS/clap
