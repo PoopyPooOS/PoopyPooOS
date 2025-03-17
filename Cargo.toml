@@ -41,11 +41,11 @@ reqwest = { version = "0.12", default-features = false, features = [
 url = "2.5.4"
 
 # OS APIs
-libc = "0.2"
-rustix = "1"
-signal-hook = { version = "0.3.17", features = ["extended-siginfo"] }
 signal-hook-tokio = { version = "0.3.1", features = ["futures-v0_3"] }
+signal-hook = { version = "0.3.17", features = ["extended-siginfo"] }
 nix = { version = "0.29.0", default-features = false }
+rustix = "1"
+libc = "0.2"
 
 # CLI APIs
 clap = { version = "4.5", features = ["derive"] }
@@ -58,9 +58,7 @@ colored = "3"
 rand_core = { version = "0.6.4", features = ["getrandom"] }
 argon2 = "0.5.3"
 
-
 # Other
-git2 = { version = "0.20", default-features = false }
 chrono = "0.4.40"
 thiserror = "2"
 
@@ -80,9 +78,8 @@ quote = "1"
 syn = "2"
 
 [patch.crates-io]
-serde = { path = "./dylib-crates/serde/serde" }
-tokio = { path = "./dylib-crates/tokio/tokio" }
-clap = { path = "./dylib-crates/clap" }
+serde = { path = "./patches/dylib-crates/serde/serde" }
+clap = { path = "./patches/dylib-crates/clap" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = [
@@ -106,3 +103,5 @@ missing_panics_doc = "warn"
 needless_pass_by_value = "allow"
 module_name_repetitions = "allow"
 must_use_candidate = "allow"
+unnecessary_wraps = "allow"
+unused_self = "allow"
