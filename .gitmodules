@@ -13,15 +13,12 @@
 [submodule "userspace/serviced"]
 	path = userspace/serviced
 	url = https://github.com/PoopyPooOS/serviced
-[submodule "patches/dylib-crates/serde"]
-	path = patches/dylib-crates/serde
-	url = https://github.com/PoopyPooOS/serde
 [submodule "userspace/coreutils"]
 	path = userspace/coreutils
 	url = https://github.com/PoopyPooOS/coreutils
-[submodule "patches/dylib-crates/clap"]
-	path = patches/dylib-crates/clap
-	url = https://github.com/PoopyPooOS/clap
 [submodule "userspace/login"]
 	path = userspace/login
 	url = https://github.com/PoopyPooOS/login
+[submodule "patches/nushell"]
+	path = patches/nushell
+	url = https://github.com/PoopyPooOS/nushell

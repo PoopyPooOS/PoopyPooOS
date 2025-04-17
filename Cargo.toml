@@ -20,6 +20,7 @@ members = [
   "userspace/serviced/ipc-serviced",
   "userspace/coreutils/coreutils-macro",
 ]
+exclude = ["patches/nushell"]
 
 [workspace.dependencies]
 # Serializing
@@ -61,6 +62,7 @@ argon2 = "0.5.3"
 # Other
 chrono = "0.4.40"
 thiserror = "2"
+glob = "0.3"
 
 # Custom libraries
 libpkg = { path = "userspace/pkg/libpkg" }
@@ -77,9 +79,13 @@ proc-macro2 = "1.0.94"
 quote = "1"
 syn = "2"
 
-[patch.crates-io]
-serde = { path = "./patches/dylib-crates/serde/serde" }
-clap = { path = "./patches/dylib-crates/clap" }
+# Nushell
+nu-protocol = { path = "./patches/nushell/crates/nu-protocol" }
+nu-cli = { path = "./patches/nushell/crates/nu-cli" }
+nu-cmd-lang = { path = "./patches/nushell/crates/nu-cmd-lang" }
+nu-command = { path = "./patches/nushell/crates/nu-command" }
+nu-path = { path = "./patches/nushell/crates/nu-path" }
+nu-embed = { path = "./patches/nushell/crates/nu-embed" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = [
