@@ -2,30 +2,24 @@
 name = "os-workspace"
 version = "0.0.0"
 edition = "2024"
-# build = "src/builder/main.rs"
-
-[features]
-iso = []
-
-[profile.release]
-opt-level = "z"
-strip = true
 
 [workspace]
-resolver = "2"
+resolver = "3"
 members = [
   "userspace/*",
-  "userspace/pkg/libpkg",
-  "userspace/userd/ipc-userd",
-  "userspace/serviced/ipc-serviced",
   "userspace/coreutils/coreutils-macro",
+
+  "userspace/prelude/prelude-macro",
 ]
-exclude = ["patches/nushell"]
+exclude = ["patches/nushell", "patches/thiserror"]
+
+[workspace.package]
+edition = "2024"
 
 [workspace.dependencies]
 # Serializing
-serde = { version = "1", features = ["derive"] }
 bincode = { version = "2", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
 serde-inline-default = "0.2.3"
 toml = "0.8.20"
 
@@ -45,8 +39,9 @@ url = "2.5.4"
 signal-hook-tokio = { version = "0.3.1", features = ["futures-v0_3"] }
 signal-hook = { version = "0.3.17", features = ["extended-siginfo"] }
 nix = { version = "0.29.0", default-features = false }
+backtrace = "0.3"
+fs_extra = "1.3"
 rustix = "1"
-libc = "0.2"
 
 # CLI APIs
 clap = { version = "4.5", features = ["derive"] }
@@ -55,50 +50,29 @@ crossterm = "0.28"
 rpassword = "7.3"
 colored = "3"
 
-# Encryption Libraries
+# Encryption
 rand_core = { version = "0.6.4", features = ["getrandom"] }
 argon2 = "0.5.3"
-
-# Other
-chrono = "0.4.40"
-thiserror = "2"
 glob = "0.3"
 
 # Custom libraries
-libpkg = { path = "userspace/pkg/libpkg" }
-logger = { path = "userspace/logger" }
-ipc = { path = "userspace/ipc" }
-tl = { path = "userspace/tl" }
+prelude-macro.path = "userspace/prelude/prelude-macro"
+prelude.path = "userspace/prelude"
+logger.path = "userspace/logger"
+ipc.path = "userspace/ipc"
+tl.path = "userspace/tl"
 
 # IPC Wrappers
-ipc-userd = { path = "userspace/userd/ipc-userd" }
-ipc-serviced = { path = "userspace/serviced/ipc-serviced" }
+serviced.path = "userspace/serviced"
+userd.path = "userspace/userd"
 
-# Crate patches
-proc-macro2 = "1.0.94"
+# Patched crates
+thiserror.path = "patches/thiserror"
+
+# Proc macros
+syn = { version = "2", features = ["full", "extra-traits"] }
 quote = "1"
-syn = "2"
-
-# Nushell
-nu-protocol = { path = "./patches/nushell/crates/nu-protocol" }
-nu-cli = { path = "./patches/nushell/crates/nu-cli" }
-nu-cmd-lang = { path = "./patches/nushell/crates/nu-cmd-lang" }
-nu-command = { path = "./patches/nushell/crates/nu-command" }
-nu-path = { path = "./patches/nushell/crates/nu-path" }
 nu-embed = { path = "./patches/nushell/crates/nu-embed" }
-
-[workspace.lints.rust]
-unexpected_cfgs = { level = "warn", check-cfg = [
-  'cfg(fuzzing)',
-  'cfg(loom)',
-  'cfg(mio_unsupported_force_poll_poll)',
-  'cfg(tokio_allow_from_blocking_fd)',
-  'cfg(tokio_internal_mt_counters)',
-  'cfg(tokio_no_parking_lot)',
-  'cfg(tokio_no_tuning_tests)',
-  'cfg(tokio_taskdump)',
-  'cfg(tokio_unstable)',
-] }
 
 [workspace.lints.clippy]
 pedantic = { level = "warn", priority = -1 }
@@ -106,8 +80,26 @@ pedantic = { level = "warn", priority = -1 }
 missing_errors_doc = "allow"
 missing_panics_doc = "warn"
 
-needless_pass_by_value = "allow"
+cast_possible_truncation = "allow"
+cast_precision_loss = "allow"
+cast_possible_wrap = "allow"
+cast_sign_loss = "allow"
+
+no_effect_underscore_binding = "allow"
+return_self_not_must_use = "allow"
 module_name_repetitions = "allow"
+struct_excessive_bools = "allow"
+needless_pass_by_value = "allow"
 must_use_candidate = "allow"
 unnecessary_wraps = "allow"
+too_many_lines = "allow"
+similar_names = "allow"
+manual_assert = "allow"
 unused_self = "allow"
+
+[profile.dev.package."*"]
+opt-level = "s"
+
+[profile.release.package."*"]
+opt-level = "s"
+strip = true

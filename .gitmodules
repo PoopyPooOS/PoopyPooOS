@@ -1,3 +1,6 @@
+[submodule "userspace/prelude"]
+	path = userspace/prelude
+	url = https://github.com/PoopyPooOS/prelude
 [submodule "userspace/tl"]
 	path = userspace/tl
 	url = https://github.com/PoopyPooOS/tl
@@ -16,9 +19,18 @@
 [submodule "userspace/coreutils"]
 	path = userspace/coreutils
 	url = https://github.com/PoopyPooOS/coreutils
+[submodule "userspace/pkg"]
+	path = userspace/pkg
+	url = https://github.com/PoopyPooOS/pkg
+[submodule "userspace/userd"]
+	path = userspace/userd
+	url = https://github.com/PoopyPooOS/userd
 [submodule "userspace/login"]
 	path = userspace/login
 	url = https://github.com/PoopyPooOS/login
 [submodule "patches/nushell"]
 	path = patches/nushell
 	url = https://github.com/PoopyPooOS/nushell
+[submodule "patches/thiserror"]
+	path = patches/thiserror
+	url = https://github.com/PoopyPooOS/thiserror
